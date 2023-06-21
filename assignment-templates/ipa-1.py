@@ -161,7 +161,7 @@ def body_mass_index(weight, height):
     weight = float(weight)
 
     total_height = height[0]*0.3048+height[1]*0.0254
-    kg_weight = weight*0.45392
+    kg_weight = weight*0.453592
 
     BMI = kg_weight / (total_height**2)
 
