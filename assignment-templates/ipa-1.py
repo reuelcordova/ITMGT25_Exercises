@@ -37,7 +37,7 @@ def savings(gross_pay, tax_rate, expenses):
     tax_rate = float(tax_rate)
     expenses = int(expenses)
     
-    final_pay = (gross_pay - (tax_rate * gross_pay)) - expenses
+    final_pay = (gross_pay - int(tax_rate * gross_pay)) - expenses
     
     return int(final_pay)
 
