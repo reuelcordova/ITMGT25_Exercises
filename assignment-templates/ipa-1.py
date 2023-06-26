@@ -41,7 +41,6 @@ def savings(gross_pay, tax_rate, expenses):
     
     return int(final_pay)
 
-print(savings(1000,0.1,100))
 
 
 def material_waste(total_material, material_units, num_jobs, job_consumption):
@@ -122,7 +121,7 @@ def interest(principal, rate, periods):
 
     simple_interest = principal * (rate*periods)
 
-    return(simple_interest + principal)
+    return int(simple_interest + principal)
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
