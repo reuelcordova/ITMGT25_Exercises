@@ -42,35 +42,38 @@ def relationship_status(from_member, to_member, social_graph):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     def relationship_status(fromMember,toMember):
-    toMember_Following = social_graph[toMember]["following"]
-    fromMember_Following = social_graph[fromMember]["following"]
-
     following = False
     friends = False
     followed_by = False
 
-    for users in fromMember_Following:
-        if toMember == users:
-            followed_by = True
+    try:
+        toMember_Following = social_graph[toMember]["following"]
+        fromMember_Following = social_graph[fromMember]["following"]
 
-    for users in toMember_Following:
-        if fromMember == users:
-            following = True
-
-    if following and followed_by:
-        friends = True
-        following = False
-        followed_by = False
-
-    if not friends and not following and not followed_by:
-        return print("no relationship")
+        for users in fromMember_Following:
+            if toMember == users:
+                followed_by = True
     
-    if following:
-        return print("follower")
-    elif followed_by:
-        return print("followed by")
-    elif friends:
-        return print("friends")
+        for users in toMember_Following:
+            if fromMember == users:
+                following = True
+    
+        if following and followed_by:
+            friends = True
+            following = False
+            followed_by = False
+    
+        if not friends and not following and not followed_by:
+            return print("no relationship")
+        
+        if following:
+            return print("follower")
+        elif followed_by:
+            return print("followed by")
+        elif friends:
+            return print("friends")
+    except KeyError:
+        return "Username not in database, please input a valid username"
 
 
 def tic_tac_toe(board):
@@ -215,16 +218,31 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-        time = 0
+    time = 0
     Arrived = False
+    ## Error check so that there's no infinite loops
+    inthemap = False
+    inthemap2 = False
+
+    for stops in route_map:
+        if first_stop == stops[0]:
+            inthemap = True
+        if second_stop == stops[0]:
+            inthemap2 = True
+
+    # ETA program
+    if inthemap and inthemap2:
+        while not Arrived:
+            for stops in route_map:
+                if stops[0] == first_stop:
+                    time += route_map[stops]["travel_time_mins"]
+                    if stops[1] == second_stop:
+                        Arrived = True
+                        break
+                    else:
+                        first_stop = stops [1]
+        return int(time)
+    else:
+        return "stop is not in the map"
     
-    while not Arrived:
-        for stops in route_map:
-            if stops[0] == first_stop:
-                time += route_map[stops]["travel_time_mins"]
-                if stops[1] == second_stop:
-                    Arrived = True
-                    break
-                else:
-                    first_stop = stops [1]
-    return int(time)
+        
