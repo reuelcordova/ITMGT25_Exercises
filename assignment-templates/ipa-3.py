@@ -41,7 +41,6 @@ def relationship_status(from_member, to_member, social_graph):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    def relationship_status(fromMember,toMember):
     following = False
     friends = False
     followed_by = False
@@ -72,7 +71,7 @@ def relationship_status(from_member, to_member, social_graph):
             return print("followed by")
         elif friends:
             return print("friends")
-    except KeyError:
+    except (KeyError,NameError):
         return "Username not in database, please input a valid username"
 
 
