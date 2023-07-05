@@ -86,18 +86,23 @@ def caesar_cipher(message, shift):
     try:
         if message == " ":
             return " "
-        
-        for letter in message:
-            
-            if letter.islower():
-                uppercase_letter=letter.upper()
-            else:
-                uppercase_letter=letter
 
-            index = alphabet.index(uppercase_letter)
-            new_index = shift + index
-            final_index= new_index % len(alphabet)
-            final_message+= alphabet[final_index]
+        if letter == " ":
+                final_message += " "
+                
+        if letter.isalpha():
+            
+            for letter in message:
+                
+                if letter.islower():
+                    uppercase_letter=letter.upper()
+                else:
+                    uppercase_letter=letter
+    
+                index = alphabet.index(uppercase_letter)
+                new_index = shift + index
+                final_index= new_index % len(alphabet)
+                final_message+= alphabet[final_index]
 
         return final_message
     except ValueError:
@@ -269,7 +274,8 @@ def scytale_cipher(message, shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     final_message = ""
     try:
-        message += "_" * (shift - len(message) % shift)
+        if len(message) % shift != 0:
+            message += "_" * (shift - (len(message) % shift))
         for i in range(len(message)):
             new_index = (i // shift) + (len(message) // shift) * (i % shift)
             final_message += message[new_index]
