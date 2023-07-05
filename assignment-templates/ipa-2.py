@@ -87,13 +87,12 @@ def caesar_cipher(message, shift):
         if message == " ":
             return " "
 
-        if letter == " ":
-                final_message += " "
-                
-        if letter.isalpha():
             
-            for letter in message:
-                
+        for letter in message:
+            if letter == " ":
+                    final_message += " "
+                    
+            if letter.isalpha():
                 if letter.islower():
                     uppercase_letter=letter.upper()
                 else:
