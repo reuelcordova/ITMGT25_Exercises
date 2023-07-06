@@ -101,7 +101,7 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-        length = len(board)
+    col_length = len(board)
     row_check = 0
     hori_initial = 0
     winner = False
