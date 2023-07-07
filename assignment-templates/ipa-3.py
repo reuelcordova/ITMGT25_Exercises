@@ -5,7 +5,7 @@
 This assignment will develop your ability to manipulate data.
 '''
 
-def relationship_status(from_member, to_member, social_graph):
+def relationship_status(fromMember, toMember, social_graph):
     '''Relationship Status.
     20 points.
 
