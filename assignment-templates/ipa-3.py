@@ -41,38 +41,21 @@ def relationship_status(fromMember, toMember, social_graph):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    following = False
-    friends = False
-    followed_by = False
+    from_member_list = social_graph[from_member]
+    to_member_list = social_graph[to_member]
 
-    try:
-        toMember_Following = social_graph[toMember]["following"]
-        fromMember_Following = social_graph[fromMember]["following"]
-
-        for users in fromMember_Following:
-            if toMember == users:
-                followed_by = True
-    
-        for users in toMember_Following:
-            if fromMember == users:
-                following = True
-    
-        if following and followed_by:
-            friends = True
-            following = False
-            followed_by = False
-    
-        if not friends and not following and not followed_by:
-            return print("no relationship")
+    if to_member in from_member_list['following'] and from_member in to_member_list['following']:
+        status= "friends"
+    elif to_member in from_member_list['following']:
+        status= "follower"
+    elif from_member in to_member_list['following']: 
+        status = "followed by"
+    else:
+        status = "no relationship"
         
-        if following:
-            return print("follower")
-        elif followed_by:
-            return print("followed by")
-        elif friends:
-            return print("friends")
-    except (KeyError,NameError):
-        return "Username not in database, please input a valid username"
+    return(status)
+
+ 
 
 
 def tic_tac_toe(board):
@@ -101,90 +84,24 @@ def tic_tac_toe(board):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    col_length = len(board)
-    row_check = 0
-    hori_initial = 0
-    winner = False
-    vert_initial = 0
-    col_check = 0
-    dia_check = 0
-    dia_initial = 0
-    dia_left = len(board)-1
-    W = False
-
-    ## Horizontal Check
+    length = len(board)
+    winner = ''
+    for vert in board:
+        if len(set(vert)) == 1:
+            return vert[0]
+    for hori in range(length):
+        hori_value = [board[vert][hori]for vert in range(length)]
+        if len(set(hori_value)) == 1:
+            return hori_value[0]
+    if len(set(list(board[i][i] for i,v in enumerate(board)))) ==1:
+        winner = (board[0][0])
+    if len(set(list(board[i][len(board)-1-i]for i,v in enumerate(board)))) ==1:
+        winner = board[0][len(board)-1]
     
-    while row_check < col_length:
-        for a in board[row_check]:
-            if a == board[hori_initial][0]:
-                winner = True
-            else:
-                winner = False
-                break
-        if winner:
-            return print("Winner is", board[hori_initial][0] )
-            break
-        else:
-            hori_initial += 1
-            row_check += 1
-    
-    if winner:
-        W = True
-
-    while col_check < col_length:
-        for z in range(len(board)):
-            if board[col_check][vert_initial] == board[z][vert_initial]:
-                winner = True
-            else: 
-                winner = False
-                break
-        if winner:
-            return print("Winner is", board[z][vert_initial] )
-            break
-        else:
-            vert_initial += 1
-            col_check += 1
-    
-    if winner: 
-        W = True
-
-    ## Diagonal Check
-
-    ## Right Diagonal
-    while dia_check < col_length:
-        for y in range(len(board)):
-            if board[0][0] == board[y][y]:
-                winner = True
-            else:
-                winner = False
-                break
-        if winner:
-            print("Winner is", board[0][0] )
-            break
-        else:
-            dia_check += 1
-    
-    if winner: 
-        W = True
-
-    dia_check =0 
-    
-    while dia_check < col_length:
-        for a in range(len(board)):
-            if board1[0][col_length-1] == board1[a][dia_left]:
-                winner = True
-                dia_left -= 1
-            else:
-                winner = False
-                break
-        if winner:
-            return print("Winner is", board[0][col_length-1])
-            break
-        break
-    if winner: 
-        W = True
-    if not(W):
-        return print("NO WINNER")
+    if winner == '':
+        return "No winner"
+    else:
+        return winner
 
 def eta(first_stop, second_stop, route_map):
     '''ETA.
